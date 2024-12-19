@@ -1,4 +1,4 @@
-package com.dodo.litkeep
+package com.dodo.litkeep.presentation.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
