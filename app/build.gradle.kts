@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.dodo.litkeep"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.dodo.litkeep"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -39,6 +39,9 @@ android {
     buildFeatures {
         compose = true
     }
+    hilt {
+        enableAggregatingTask = false
+    }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
@@ -63,6 +66,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+//    implementation(libs.compose.material)
 
     // Retrofit & Serialization
     implementation(libs.retrofit)
@@ -87,6 +91,16 @@ dependencies {
     // Navigation Compose (Optional)
     implementation(libs.androidx.hilt.navigation.compose)
 
+    // Optional: Material Icons
+    implementation(libs.compose.material.icons.extended)
+
+    // Navigation for Compose
+    implementation(libs.navigation.compose)
+
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.systemuicontroller)
+
+//    implementation("com.squareup:javapoet:1.13.0")
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
