@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt") // Add kapt plugin here
     alias(libs.plugins.hilt.android.gradle)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -29,12 +30,22 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
+    kapt {
+        correctErrorTypes = true
+    }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "18"
+    }
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(18)) // Java Toolchain도 18로 설정
+        }
     }
     buildFeatures {
         compose = true
@@ -50,6 +61,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
 
 dependencies {
@@ -72,9 +84,26 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlin.serialization)
 
+    // OkHttp and Interceptor
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+
+    //serialization
+    implementation(libs.kotlinx.serialization.json)
+    // xml -> json
+    implementation(libs.json)
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.converter.moshi)
+    implementation(libs.converter.simplexml)
+//    implementation(libs.moshi.xml)
+//    implementation(libs.moshi.xml)
+
+
     // Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.androidx.compose.foundation)
     kapt(libs.room.compiler)
 
     // Glide
@@ -96,7 +125,6 @@ dependencies {
 
     // Navigation for Compose
     implementation(libs.navigation.compose)
-
     implementation(libs.accompanist.pager)
     implementation(libs.accompanist.systemuicontroller)
 
